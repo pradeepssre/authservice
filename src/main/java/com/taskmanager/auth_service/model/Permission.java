@@ -25,6 +25,7 @@ public class Permission {
 
     @Column(nullable = false)
     private LocalDateTime createdAt;
+
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 

@@ -24,7 +24,7 @@ public class Role {
     private UUID id;
 
     @OneToMany(mappedBy = "role") // <1>
-    private List<Permission> permissions; // <1>
+    private List<RolePermission> rolePermissions; // <1>
 
     @Column(nullable = true, unique = true) // <2>
     private String name; // <2>

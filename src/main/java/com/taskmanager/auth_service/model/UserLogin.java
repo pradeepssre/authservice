@@ -20,18 +20,23 @@ public class UserLogin {
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY) @JoinColumn(name = "user_id", nullable = false)
-
     private User user;
+
     @Column(name = "login_timestamp", nullable = false)
     private LocalDateTime loginTimestamp;
+
     @Column(name = "ip_address")
     private String ipAddress;
+
     @Column(name = "user_agent")
     private String userAgent;
+
     @Column(nullable = false)
     private boolean success;
+
     @Column(name = "failure_reason")
     private String failureReason;
+
     @Column(nullable = false)
     private String location;
 

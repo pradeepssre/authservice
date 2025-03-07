@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
 
-    <changeSet id="001-initial-tables" author="developer" context="base">
+    <changeSet id="001-initial-tables" author="developer">
         <!-- Users table -->
         <createTable tableName="users" schemaName="auth">
             <column name="id" type="uuid">
@@ -102,6 +102,9 @@
 
         <!-- User Roles junction table -->
         <createTable tableName="user_roles" schemaName="auth">
+        <column name="id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
             <column name="user_id" type="uuid">
                 <constraints nullable="false" foreignKeyName="fk_user_roles_user" references="auth.users(id)"/>
             </column>
@@ -109,10 +112,13 @@
                 <constraints nullable="false" foreignKeyName="fk_user_roles_role" references="auth.roles(id)"/>
             </column>
         </createTable>
-        <addPrimaryKey tableName="user_roles" columnNames="user_id, role_id" schemaName="auth"/>
+
 
         <!-- Role Permissions junction table -->
         <createTable tableName="role_permissions" schemaName="auth">
+        <column name="id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
             <column name="role_id" type="uuid">
                 <constraints nullable="false" foreignKeyName="fk_role_permissions_role" references="auth.roles(id)"/>
             </column>
@@ -120,10 +126,10 @@
                 <constraints nullable="false" foreignKeyName="fk_role_permissions_permission" references="auth.permissions(id)"/>
             </column>
         </createTable>
-        <addPrimaryKey tableName="role_permissions" columnNames="role_id, permission_id" schemaName="auth"/>
+
 
         <!-- Updated timestamp triggers -->
-        <sql>
+        <!-- <sql>
             CREATE OR REPLACE FUNCTION auth.update_timestamp()
             RETURNS TRIGGER AS $$
             BEGIN
@@ -146,7 +152,7 @@
             BEFORE UPDATE ON auth.permissions
             FOR EACH ROW
             EXECUTE FUNCTION auth.update_timestamp();
-        </sql>
+        </sql> -->
 
         <!-- Rollback -->
         <rollback>
@@ -155,10 +161,10 @@
             <dropTable tableName="permissions" schemaName="auth"/>
             <dropTable tableName="roles" schemaName="auth"/>
             <dropTable tableName="users" schemaName="auth"/>
-            <dropIndex indexName="user_logins" schemaName="auth"/>
-            <sql>
+            <dropTable tableName="user_logins" schemaName="auth"/>
+            <!-- <sql>
                 DROP FUNCTION IF EXISTS auth.update_timestamp();
-            </sql>
+            </sql> -->
         </rollback>
     </changeSet>
 </databaseChangeLog>

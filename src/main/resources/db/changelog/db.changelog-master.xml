@@ -11,9 +11,9 @@
     </changeSet>
 
     <!-- Include individual changelog files -->
-    <include file="db/changelog/changes/001-initial-tables.xml"/>
-    <include file="db/changelog/changes/002-initial-roles.xml"/>
-    <include file="db/changelog/changes/003-token-tables.xml"/>
-    <include file="db/changelog/changes/004-indexes.xml"/>
+    <include file="db/changelog/changes/001-initial-tables.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/changes/002-initial-roles.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/changes/003-token-tables.xml" relativeToChangelogFile="false"/>
+    <!-- <include file="db/changelog/changes/004-indexes.xml" relativeToChangelogFile="false" /> -->
 
 </databaseChangeLog>
