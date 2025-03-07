@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+
+    <changeSet id="002-initial-roles" author="developer" context="base">
+        <!-- Insert default roles -->
+        <insert tableName="roles" schemaName="auth">
+            <column name="id" value="5a1ce0de-98e3-4fa2-b652-6a0c68cfd8b6"/>
+            <column name="name" value="ROLE_ADMIN"/>
+            <column name="description" value="Administrator with full access"/>
+        </insert>
+        <insert tableName="roles" schemaName="auth">
+            <column name="id" value="be94f76f-d35b-4fbc-b867-0240adc5b8c8"/>
+            <column name="name" value="ROLE_USER"/>
+            <column name="description" value="Standard user with basic access"/>
+        </insert>
+        <insert tableName="roles" schemaName="auth">
+            <column name="id" value="c33a155d-e1d9-4d46-8385-fe35e9a85c20"/>
+            <column name="name" value="ROLE_MANAGER"/>
+            <column name="description" value="Team manager with elevated privileges"/>
+        </insert>
+
+        <!-- Insert default permissions -->
+        <insert tableName="permissions" schemaName="auth">
+            <column name="id" value="d2b4c96a-e71d-4c9e-8567-62fc0d7f2c4d"/>
+            <column name="name" value="READ_USER"/>
+            <column name="description" value="Can view user information"/>
+        </insert>
+        <insert tableName="permissions" schemaName="auth">
+            <column name="id" value="a67c7bfa-9a0e-4218-8294-965f02d98aec"/>
+            <column name="name" value="CREATE_USER"/>
+            <column name="description" value="Can create new users"/>
+        </insert>
+        <insert tableName="permissions" schemaName="auth">
+            <column name="id" value="3b5c8fdb-11e6-4d4c-b6f5-73a3b9b82d38"/>
+            <column name="name" value="UPDATE_USER"/>
+            <column name="description" value="Can update user information"/>
+        </insert>
+        <insert tableName="permissions" schemaName="auth">
+            <column name="id" value="7f8eaf7c-1351-4d8a-8fbc-d8254d0a23f1"/>
+            <column name="name" value="DELETE_USER"/>
+            <column name="description" value="Can delete users"/>
+        </insert>
+        <insert tableName="permissions" schemaName="auth">
+            <column name="id" value="f01be1df-fd56-4cf3-b5a7-5e98b216e0a1"/>
+            <column name="name" value="ASSIGN_ROLE"/>
+            <column name="description" value="Can assign roles to users"/>
+        </insert>
+
+        <!-- Assign permissions to roles -->
+        <!-- Admin role gets all permissions -->
+        <insert tableName="role_permissions" schemaName="auth">
+            <column name="role_id" value="5a1ce0de-98e3-4fa2-b652-6a0c68cfd8b6"/>
+            <column name="permission_id" value="d2b4c96a-e71d-4c9e-8567-62fc0d7f2c4d"/>
+        </insert>
+        <insert tableName="role_permissions" schemaName="auth">
+            <column name="role_id" value="5a1ce0de-98e3-4fa2-b652-6a0c68cfd8b6"/>
+            <column name="permission_id" value="a67c7bfa-9a0e-4218-8294-965f02d98aec"/>
+        </insert>
+        <insert tableName="role_permissions" schemaName="auth">
+            <column name="role_id" value="5a1ce0de-98e3-4fa2-b652-6a0c68cfd8b6"/>
+            <column name="permission_id" value="3b5c8fdb-11e6-4d4c-b6f5-73a3b9b82d38"/>
+        </insert>
+        <insert tableName="role_permissions" schemaName="auth">
+            <column name="role_id" value="5a1ce0de-98e3-4fa2-b652-6a0c68cfd8b6"/>
+            <column name="permission_id" value="7f8eaf7c-1351-4d8a-8fbc-d8254d0a23f1"/>
+        </insert>
+        <insert tableName="role_permissions" schemaName="auth">
+            <column name="role_id" value="5a1ce0de-98e3-4fa2-b652-6a0c68cfd8b6"/>
+            <column name="permission_id" value="f01be1df-fd56-4cf3-b5a7-5e98b216e0a1"/>
+        </insert>
+
+        <!-- Manager role gets most permissions except DELETE_USER -->
+        <insert tableName="role_permissions" schemaName="auth">
+            <column name="role_id" value="c33a155d-e1d9-4d46-8385-fe35e9a85c20"/>
+            <column name="permission_id" value="d2b4c96a-e71d-4c9e-8567-62fc0d7f2c4d"/>
+        </insert>
+        <insert tableName="role_permissions" schemaName="auth">
+            <column name="role_id" value="c33a155d-e1d9-4d46-8385-fe35e9a85c20"/>
+            <column name="permission_id" value="a67c7bfa-9a0e-4218-8294-965f02d98aec"/>
+        </insert>
+        <insert tableName="role_permissions" schemaName="auth">
+            <column name="role_id" value="c33a155d-e1d9-4d46-8385-fe35e9a85c20"/>
+            <column name="permission_id" value="3b5c8fdb-11e6-4d4c-b6f5-73a3b9b82d38"/>
+        </insert>
+
+        <!-- User role gets only READ_USER permission -->
+        <insert tableName="role_permissions" schemaName="auth">
+            <column name="role_id" value="be94f76f-d35b-4fbc-b867-0240adc5b8c8"/>
+            <column name="permission_id" value="d2b4c96a-e71d-4c9e-8567-62fc0d7f2c4d"/>
+        </insert>
+
+        <!-- Rollback for this changeset -->
+        <rollback>
+            <delete tableName="role_permissions" schemaName="auth"/>
+            <delete tableName="permissions" schemaName="auth"/>
+            <delete tableName="roles" schemaName="auth"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

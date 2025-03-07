@@ -1,0 +1,62 @@
+{
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true,
+        "source.fixAll": true
+    },
+    "editor.rulers": [
+        120
+    ],
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    // Java settings
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.format.settings.url": ".vscode/java-formatter.xml",
+    "java.format.settings.profile": "TaskManagerProfile",
+    "java.cleanup.actions": [
+        "addOverride",
+        "addDeprecated",
+        "stringConcatToTextBlock",
+        "invertEquals",
+        "addFinalModifier",
+        "instanceofPatternMatch",
+        "lambdaExpression",
+        "switchExpression"
+    ],
+    // Extension settings
+    "checkstyle.autocheck": true,
+    "checkstyle.configurationFile": "checkstyle.xml",
+    "sonarlint.rules": {
+        "java:S106": {
+            "level": "on"
+        }, // System.out/err
+        "java:S1172": {
+            "level": "on"
+        }, // Unused parameters
+        "java:S1854": {
+            "level": "on"
+        }, // Dead stores
+        "java:S1481": {
+            "level": "on"
+        }, // Unused locals
+        "java:S2259": {
+            "level": "on"
+        } // Null pointer dereference
+    },
+    // Recommended extensions
+    "extensions.recommendations": [
+        "vscjava.vscode-java-pack",
+        "redhat.java",
+        "vscjava.vscode-maven",
+        "vscjava.vscode-java-debug",
+        "vscjava.vscode-java-test",
+        "vscjava.vscode-java-dependency",
+        "shengchen.vscode-checkstyle",
+        "sonarsource.sonarlint-vscode",
+        "piotrpalarz.vscode-gitignore-generator",
+        "eamodio.gitlens"
+    ],
+    "java.compile.nullAnalysis.mode": "automatic"
+}

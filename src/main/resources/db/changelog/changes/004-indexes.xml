@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+
+    <changeSet id="004-indexes" author="developer" context="base">
+        <!-- Create indexes for performance optimization -->
+
+        <!-- Users table indexes -->
+        <createIndex indexName="idx_users_email" tableName="users" schemaName="auth">
+            <column name="email"/>
+        </createIndex>
+        <createIndex indexName="idx_users_username" tableName="users" schemaName="auth">
+            <column name="username"/>
+        </createIndex>
+
+        <!-- Token table indexes -->
+        <createIndex indexName="idx_tokens_user_id" tableName="tokens" schemaName="auth">
+            <column name="user_id"/>
+        </createIndex>
+        <createIndex indexName="idx_tokens_token" tableName="tokens" schemaName="auth">
+            <column name="token"/>
+        </createIndex>
+        <createIndex indexName="idx_tokens_token_type" tableName="tokens" schemaName="auth">
+            <column name="token_type"/>
+        </createIndex>
+
+        <!-- Refresh token table indexes -->
+        <createIndex indexName="idx_refresh_tokens_user_id" tableName="refresh_tokens" schemaName="auth">
+            <column name="user_id"/>
+        </createIndex>
+        <createIndex indexName="idx_refresh_tokens_token" tableName="refresh_tokens" schemaName="auth">
+            <column name="token"/>
+        </createIndex>
+        <createIndex indexName="idx_user_logins_user_id" tableName="user_logins" schemaName="auth">
+            <column name="user_id"/>
+        </createIndex>
+        <createIndex indexName="idx_user_logins_timestamp" tableName="user_logins" schemaName="auth">
+            <column name="login_timestamp"/>
+        </createIndex>
+
+        <!--User_logiin indexes-->
+        <createIndex tableName="user_logins" schemaName="auth" indexName="idx_user_logins_user_id">
+            <column name="user_id"/>
+        </createIndex>
+        <createIndex tableName="user_logins" schemaName="auth" indexName="idx_user_logins_user_timestamp">
+            <column name="user_id"/>
+            <column name="login_timestamp" descending="true"/>
+        </createIndex>
+
+        <!-- Rollback -->
+        <rollback>
+            <dropIndex indexName="idx_refresh_tokens_token" schemaName="auth"/>
+            <dropIndex indexName="idx_refresh_tokens_user_id" schemaName="auth"/>
+            <dropIndex indexName="idx_tokens_token_type" schemaName="auth"/>
+            <dropIndex indexName="idx_tokens_token" schemaName="auth"/>
+            <dropIndex indexName="idx_tokens_user_id" schemaName="auth"/>
+            <dropIndex indexName="idx_users_username" schemaName="auth"/>
+            <dropIndex indexName="idx_users_email" schemaName="auth"/>
+            <dropIndex indexName="idx_user_logins_user_timestamp" schemaName="auth"/>
+            <dropIndex indexName="idx_user_logins_user_id" schemaName="auth"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

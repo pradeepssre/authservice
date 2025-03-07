@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+
+    <!-- Schema creation -->
+    <changeSet id="001-create-auth-schema" author="pradeep">
+        <sql>CREATE SCHEMA IF NOT EXISTS auth;</sql>
+    </changeSet>
+
+    <!-- Include individual changelog files -->
+    <include file="db/changelog/changes/001-initial-tables.xml"/>
+    <include file="db/changelog/changes/002-initial-roles.xml"/>
+    <include file="db/changelog/changes/003-token-tables.xml"/>
+    <include file="db/changelog/changes/004-indexes.xml"/>
+
+</databaseChangeLog>
